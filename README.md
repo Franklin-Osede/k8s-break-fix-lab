@@ -22,6 +22,22 @@ practice.
 Cluster creation is intentionally manual for now: installing a cluster with kubeadm is an
 exam skill worth practising by hand. Automation may come later.
 
+## Lab VMs
+
+[setup/vms.sh](setup/vms.sh) manages three plain Ubuntu 24.04 multipass VMs
+(`controlplane`, `node01`, `node02`). It sets up `/etc/hosts`, passwordless `ssh` from
+`controlplane` to the workers and disables swap. It installs **no** Kubernetes components.
+
+```bash
+setup/vms.sh create            # sizes overridable: CP_MEM=4G WORKER_MEM=3G ...
+# install Kubernetes by hand on the VMs with kubeadm, following kubernetes.io
+setup/vms.sh snapshot clean    # save the healthy cluster
+# run scenarios (from controlplane, where kubectl and ssh to the workers work)
+setup/vms.sh restore clean     # back to the healthy cluster at any time
+setup/vms.sh status            # VMs and their snapshots
+setup/vms.sh destroy           # delete and purge the 3 VMs (asks for confirmation)
+```
+
 ## Safety switches
 
 Every injection goes through the checks in [scripts/lib.sh](scripts/lib.sh):
