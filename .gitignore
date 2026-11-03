@@ -1,0 +1,24 @@
+# Lab state and logs (normally in ~/.k8s-break-fix, ignored here just in case)
+.k8s-break-fix/
+state
+*.log
+
+# Kubeconfigs and credentials
+kubeconfig*
+*.kubeconfig
+admin.conf
+*.pem
+*.key
+*.crt
+.env
+
+# Private notes
+notes/
+private/
+*.private.md
+
+# OS and editor files
+.DS_Store
+*.swp
+.vscode/
+.idea/
